@@ -1,0 +1,122 @@
+import { Box, Button, Grid, TextField, Typography } from "@material-ui/core";
+import React, { useState, useEffect } from "react";
+import { makeStyles } from "@material-ui/core";
+import { useForm, Controller } from "react-hook-form";
+import { useHistory } from "react-router";
+import axios from "axios";
+import { BiLogInCircle } from "react-icons/bi";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Link } from "react-router-dom";
+import FlashMessage from "../Pages/FlashMessage";
+const useStyles = makeStyles((theme) => ({
+  div: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  maingrid: {
+    backgroundColor: "white",
+    padding: "20px",
+    border: "0.5px solid grey",
+    borderRadius: "10% ",
+    // boxShadow: "0 5px 10px #777",
+    width: "30%",
+    marginTop: "6em",
+    [theme.breakpoints.down("md")]: {
+      width: "80%",
+      marginTop: "7em",
+    },
+  },
+}));
+const schema = yup
+  .object({
+    email: yup.string().email().required(),
+  })
+  .required();
+
+function AdminForgotPass() {
+  let history = useHistory();
+  const classes = useStyles();
+  const [loginMessage, setLoginMessage] = useState("");
+  const [ErrorDisplay, setErrorDisplay] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const functionName = (data) => {
+    axios
+      .put("http://localhost:8000/API/admin/forgetPassword", data)
+      .then((res) => {
+        console.log(res, "res");
+
+        // localStorage.setItem("userID", users._id);
+        console.log(res.data);
+        setLoginMessage("check your Email");
+        setErrorDisplay(true);
+        history.push("/adminresetpassword");
+      })
+      .catch((err) => {
+        setLoginMessage(err.message);
+        setErrorDisplay(true);
+        console.log(err);
+      });
+  };
+
+  const onSubmit = (data) => {
+    console.log(data);
+    functionName(data);
+    // history.push("/admin");
+  };
+
+  return (
+    <>
+      <div className={classes.div}>
+        <Grid
+          container
+          className={classes.maingrid}
+          justifyContent="center"
+          alignItems="center"
+          direction="column"
+          spacing={2}
+        >
+          <Grid item>
+            <Typography variant="h4" style={{ color: "blue" }}>
+              Enter Your Email
+            </Typography>
+          </Grid>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            {/* <input {...register("email")} />
+            <p>{errors.email?.message}</p> */}
+
+            <Grid item xs={12} md={12}>
+              <TextField
+                label="Email"
+                variant="outlined"
+                fullWidth
+                name="email"
+                {...register("email")}
+              />
+              <p style={{ color: "red" }}>{errors.email?.message}</p>
+            </Grid>
+
+            <Grid item>
+              <Button type="submit" variant="contained" color="secondary">
+                Submit
+              </Button>
+            </Grid>
+          </form>
+        </Grid>
+      </div>
+      {ErrorDisplay && <FlashMessage message={loginMessage} />}
+    </>
+  );
+}
+
+export default AdminForgotPass;
