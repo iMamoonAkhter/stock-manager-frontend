@@ -58,7 +58,7 @@ function ViewItem() {
   const [item, setItem] = useState({});
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/API/products/${_id}`)
+      .get(`https://stock-manager-backend-livid.vercel.app/API/products/${_id}`)
       .then((res) => {
         console.log(res.data);
         setItem(res.data);
@@ -155,7 +155,7 @@ function ViewItem() {
                   console.log(user_id);
                   axios
                     .post(
-                      `http://localhost:8000/API/cart/addtocart/${user_id}/${tenantID}`,
+                      `https://stock-manager-backend-livid.vercel.app/API/cart/addtocart/${user_id}/${tenantID}`,
                       cart
                     )
                     .then((res) => {
@@ -177,7 +177,7 @@ function ViewItem() {
           <Grid container direction="column">
             <Grid item>
               <img
-                src={`http://localhost:8000/uploads/${item.picture}`}
+                src={`https://stock-manager-backend-livid.vercel.app/uploads/${item.picture}`}
                 className={classes.itemimg}
                 alt="lp"
               />

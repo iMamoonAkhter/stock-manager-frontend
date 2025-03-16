@@ -56,7 +56,7 @@ function AddCategory() {
 
   //   editCategory( data, history,id,setSuccess)
   //   // await axios
-  //   //   .put(`http://localhost:8000/API/categories/${id}`, data)
+  //   //   .put(`https://stock-manager-backend-livid.vercel.app/API/categories/${id}`, data)
   //   //   .then((res) => {
   //   //     console.log(res.data);
   //   //     history.push("/category");

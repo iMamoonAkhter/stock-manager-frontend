@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
 //   console.log("from Activation api");
 
 //   axios
-//     .post("http://localhost:8000/API/admin/ActivateAccount", data)
+//     .post("https://stock-manager-backend-livid.vercel.app/API/admin/ActivateAccount", data)
 //     .then((res) => {
 //       // history.push("http://localhost:3000/store");
 //       console.log(res.data);

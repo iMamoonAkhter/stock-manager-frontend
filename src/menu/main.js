@@ -6,7 +6,7 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 // let items = [];
 // axios
-//   .get("http://localhost:8000/API/products")
+//   .get("https://stock-manager-backend-livid.vercel.app/API/products")
 //   .then((res) => {
 //     items = res.data;
 //     console.log(items);
@@ -17,7 +17,7 @@ import { Link, useParams } from "react-router-dom";
 
 // const getitems = async () => {
 //   await axios
-//     .get("http://localhost:8000/API/products")
+//     .get("https://stock-manager-backend-livid.vercel.app/API/products")
 //     .then((res) => {
 //       items = res.data;
 //       console.log(items);
@@ -36,7 +36,7 @@ function Main() {
   const [items, setItem] = useState([]);
   useEffect(async () => {
     await axios
-      .get(`http://localhost:8000/API/products/tenant/${tenantID}`)
+      .get(`https://stock-manager-backend-livid.vercel.app/API/products/tenant/${tenantID}`)
       .then((res) => {
         let getitems = res.data;
         setCategories(res.data);
@@ -50,7 +50,7 @@ function Main() {
   console.log(items);
   // let items = [];
   // items = axios
-  //   .get("http://localhost:8000/API/products")
+  //   .get("https://stock-manager-backend-livid.vercel.app/API/products")
   //   .then((res) => {
   //     console.log(res.data);
   //   })

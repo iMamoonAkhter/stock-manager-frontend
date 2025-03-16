@@ -66,7 +66,7 @@ function AddNewOrder() {
 
   const functionName = async (data) => {
     axios
-      .put(`http://localhost:8000/API/expense/${id}`, data)
+      .put(`https://stock-manager-backend-livid.vercel.app/API/expense/${id}`, data)
       .then((res) => {
         console.log(res.data);
         setSuccess(true);

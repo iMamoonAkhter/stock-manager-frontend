@@ -52,7 +52,7 @@ function AdminForgotPass() {
 
   const functionName = (data) => {
     axios
-      .put("http://localhost:8000/API/admin/forgetPassword", data)
+      .put("https://stock-manager-backend-livid.vercel.app/API/admin/forgetPassword", data)
       .then((res) => {
         console.log(res, "res");
 

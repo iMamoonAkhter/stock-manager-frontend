@@ -210,7 +210,7 @@ function AddNewOrder() {
 
   useEffect(async () => {
     await axios
-      .get(`http://localhost:8000/API/products/tenant/${tenantID}`)
+      .get(`https://stock-manager-backend-livid.vercel.app/API/products/tenant/${tenantID}`)
       .then((res, req) => {
         setRowdata(res.data);
       })

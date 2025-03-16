@@ -4,7 +4,7 @@ export const activateInActiveUser = (data, setRowdata) => {
   debugger;
   axios
     .put(
-      `http://localhost:8000/API/users/${
+      `https://stock-manager-backend-livid.vercel.app/API/users/${
         data.id ? `deactivate/${data.id}` : "Reactivate"
       }`,
       data.email ? data.email : { email: data }
@@ -20,7 +20,7 @@ export const activateInActiveUser = (data, setRowdata) => {
 export const getAllUser = (setRowdata) => {
   debugger;
   axios
-    .get("http://localhost:8000/API/users")
+    .get("https://stock-manager-backend-livid.vercel.app/API/users")
     .then((res) => {
       debugger;
       console.log(res.data);
