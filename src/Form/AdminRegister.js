@@ -68,7 +68,7 @@ function UserRegister() {
   const functionName = (info) => {
     debugger;
     axios
-      .post("https://stock-manager-backend-livid.vercel.app/API/admin/register", info)
+      .post("https://stock-manager-backend-indol.vercel.app/API/admin/register", info)
       .then((res) => {
         debugger;
         const { token } = res.data;
@@ -87,7 +87,7 @@ function UserRegister() {
   // const functionName = async (info) => {
   //   debugger;
   //   axios
-  //     .post("https://stock-manager-backend-livid.vercel.app/API/users/register", info)
+  //     .post("https://stock-manager-backend-indol.vercel.app/API/users/register", info)
   //     .then((res) => {
   //       const { token } = res.data;
   //       localStorage.setItem("registertoken", token);
@@ -104,7 +104,7 @@ function UserRegister() {
 
   // const f2 = async () => {
   //   axios
-  //     .post("https://stock-manager-backend-livid.vercel.app/API/users/ActivateAccount", {
+  //     .post("https://stock-manager-backend-indol.vercel.app/API/users/ActivateAccount", {
   //       Headers: {
   //         token: localStorage.getItem("token"),
   //       },

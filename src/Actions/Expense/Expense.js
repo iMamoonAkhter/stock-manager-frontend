@@ -1,7 +1,7 @@
 import axios from "axios";
 export const editExpense = (data, history, id, setSuccess) => {
   axios
-    .put(`https://stock-manager-backend-livid.vercel.app/API/expense/${id}`, data)
+    .put(`https://stock-manager-backend-indol.vercel.app/API/expense/${id}`, data)
     .then((res) => {
       console.log("add cart response    ", res.data);
       setSuccess(true);
@@ -12,7 +12,7 @@ export const editExpense = (data, history, id, setSuccess) => {
 export const getExpense = (id, setData) => {
   debugger;
   axios
-    .get(`https://stock-manager-backend-livid.vercel.app/API/expense/${id}`, id)
+    .get(`https://stock-manager-backend-indol.vercel.app/API/expense/${id}`, id)
     .then((res) => {
       debugger;
       console.log("add cart response    ", res.data);

@@ -54,7 +54,7 @@ function Login() {
   const functionName = (data) => {
     debugger;
     axios
-      .put("https://stock-manager-backend-livid.vercel.app/API/users/resetPassword", data)
+      .put("https://stock-manager-backend-indol.vercel.app/API/users/resetPassword", data)
       .then((res) => {
         console.log(res, "res");
 

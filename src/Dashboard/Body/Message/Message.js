@@ -48,7 +48,7 @@ function Message() {
     console.log(_id);
 
     axios
-      .delete(`https://stock-manager-backend-livid.vercel.app/API/feedback/${_id}`)
+      .delete(`https://stock-manager-backend-indol.vercel.app/API/feedback/${_id}`)
       .then((res) => {
         // history.push("http://localhost:3000/store");
         console.log(res.data);
@@ -105,7 +105,7 @@ function Message() {
 
   useEffect(async () => {
     await axios
-      .get("https://stock-manager-backend-livid.vercel.app/API/feedback")
+      .get("https://stock-manager-backend-indol.vercel.app/API/feedback")
       .then((res, req) => {
         // history.push("http://localhost:3000/store");
         console.log(res.data);

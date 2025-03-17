@@ -101,7 +101,7 @@ function Cart() {
   const [cartitems, setcartitems] = useState([]);
   useEffect(() => {
     axios
-      .get(`https://stock-manager-backend-livid.vercel.app/API/cart/${user_id}`)
+      .get(`https://stock-manager-backend-indol.vercel.app/API/cart/${user_id}`)
       .then((res) => {
         debugger;
         console.log("first data", res.data);
@@ -215,7 +215,7 @@ function Cart() {
                 >
                   <Grid item xs={3} sm={4.5}>
                     <img
-                      src={`https://stock-manager-backend-livid.vercel.app/uploads/${item.product.picture}`}
+                      src={`https://stock-manager-backend-indol.vercel.app/uploads/${item.product.picture}`}
                       alt="title"
                       className={classes.photo}
                     />
@@ -255,7 +255,7 @@ function Cart() {
                         console.log("id ID", item.product._id);
                         axios
                           .delete(
-                            `https://stock-manager-backend-livid.vercel.app/API/cart/${user_id}/${item.product._id}`
+                            `https://stock-manager-backend-indol.vercel.app/API/cart/${user_id}/${item.product._id}`
                           )
                           .then((res) => {
                             console.log(res.data);

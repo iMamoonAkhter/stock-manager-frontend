@@ -68,7 +68,7 @@ const menu = [
 // import axios from "axios";
 // const items = async () => {
 //   axios
-//     .get("https://stock-manager-backend-livid.vercel.app/API/products")
+//     .get("https://stock-manager-backend-indol.vercel.app/API/products")
 //     .then((res) => {
 //       console.log(res.data);
 

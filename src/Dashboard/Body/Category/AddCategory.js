@@ -71,7 +71,7 @@ function AddCategory() {
   };
   const functionName = async (data) => {
     axios
-      .post(`https://stock-manager-backend-livid.vercel.app/API/categories/${tenantID}`, data)
+      .post(`https://stock-manager-backend-indol.vercel.app/API/categories/${tenantID}`, data)
       .then((res) => {
         console.log(res.data);
         setSuccess(true);

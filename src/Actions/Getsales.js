@@ -2,7 +2,7 @@ import axios from "axios";
 let tenantID = localStorage.getItem("tenantId");
 export const getSales = (setData) => {
   axios
-    .get(`https://stock-manager-backend-livid.vercel.app/API/orders/sales/${tenantID}`)
+    .get(`https://stock-manager-backend-indol.vercel.app/API/orders/sales/${tenantID}`)
     .then((res) => {
       console.log(res);
       let managedData = res.data.map((item) => {
@@ -22,7 +22,7 @@ export const getSales = (setData) => {
 
 export const getManualSales = (setData) => {
   axios
-    .get(`https://stock-manager-backend-livid.vercel.app/API/ManualOrders/ManualOrderSales/${tenantID}`)
+    .get(`https://stock-manager-backend-indol.vercel.app/API/ManualOrders/ManualOrderSales/${tenantID}`)
     .then((res) => {
       console.log(res);
       let managedData = res.data.map((item) => {

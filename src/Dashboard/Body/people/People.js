@@ -52,7 +52,7 @@ function People() {
     console.log(_id);
 
     // axios
-    //   .delete(`https://stock-manager-backend-livid.vercel.app/API/categories/${_id}`)
+    //   .delete(`https://stock-manager-backend-indol.vercel.app/API/categories/${_id}`)
     //   .then((res) => {
     //     // history.push("http://localhost:3000/store");
     //     console.log(res.data);

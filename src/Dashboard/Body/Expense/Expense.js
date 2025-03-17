@@ -50,7 +50,7 @@ function Expense() {
   const handleDelete = (_id) => {
     console.log(_id);
     axios
-      .delete(`https://stock-manager-backend-livid.vercel.app/API/expense/${_id}`)
+      .delete(`https://stock-manager-backend-indol.vercel.app/API/expense/${_id}`)
       .then((res) => {
         // history.push("http://localhost:3000/store");
         console.log(res.data);
@@ -134,7 +134,7 @@ function Expense() {
   useEffect(() => {
     debugger;
     axios
-      .get(`https://stock-manager-backend-livid.vercel.app/API/expense/tenant/${tenantID}`)
+      .get(`https://stock-manager-backend-indol.vercel.app/API/expense/tenant/${tenantID}`)
       .then((res, req) => {
         // history.push("http://localhost:3000/store");
         console.log(res.data);
