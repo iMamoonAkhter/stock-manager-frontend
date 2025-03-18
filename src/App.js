@@ -7,7 +7,7 @@ import Login from "../src/Form/Login";
 import TenantLogin from "../src/Form/TenantLogin";
 import Admin from "./Dashboard/Admin";
 import Store from "../src/Store/Store";
-import AdminLogin from "./Form/AdminLogin";
+import AdminLogin from "../src/Form/AdminLogin"
 import CreateNew from "../src/Form/CreateNewTenant";
 import AdminRegister from "../src/Form/AdminRegister";
 import ForgotPassword from "../src/Form/ForgotPassword";
@@ -56,8 +56,7 @@ function App() {
   const clientToken = localStorage.getItem("token");
   const adminToken = localStorage.getItem("admintoken");
 
-  console.log("App: Client Token:", clientToken);
-  console.log("App: Admin Token:", adminToken);
+
 
   return (
     <ThemeProvider theme={theme}>
