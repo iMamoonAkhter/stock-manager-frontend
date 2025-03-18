@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Route, Switch } from "react-router-dom";
+import React, { useState } from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
 import Navbar from "./Nav/Navbar";
 import Sidebar from "./Sidenav/Sidenav";
 import Dashboard from "../Body/Dashboard";
@@ -24,17 +24,13 @@ import AddExpense from "../Body/Expense/AddExpense";
 import EditExpense from "../Body/Expense/EditExpense";
 import ManualOrder from "../Body/ManaulOrder/ManualOrder";
 import ManualSale from "../Body/Sales/ManualSale";
-import axios from "axios";
-
 import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
     height: "100vh",
     marginTop: "1.5em",
-    // backgroundColor: "#27ABEB",
     padding: theme.spacing(6, 2, 0, 32),
-
     [theme.breakpoints.down("sm")]: {
       padding: theme.spacing(4, 2),
       marginTop: "2em",
@@ -42,59 +38,32 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// const gettoken = localStorage.getItem("adminregistertoken");
-
-// const f2 = async () => {
-//   console.log(gettoken, "get token");
-//   const data = {
-//     token: gettoken,
-//   };
-//   console.log("from Activation api");
-
-//   axios
-//     .post("https://stock-manager-backend-indol.vercel.app/API/admin/ActivateAccount", data)
-//     .then((res) => {
-//       // history.push("http://localhost:3000/store");
-//       console.log(res.data);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// };
-
 function HeaderComponent() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [success, setSuccess] = useState(false);
-  // useEffect(() => {
-  //   if (localStorage.getItem("adminregistertoken")) {
-  //     f2();
-  //     setSuccess(true);
-  //   } else if (localStorage.getItem("admintoken")) {
-  //     console.log("u r logedin");
-  //     setSuccess(true);
-  //   } else {
-  //     console.log("Kindly register or use correct ");
-  //   }
-  // }, []);
+  const adminToken = localStorage.getItem("admintoken");
+  const classes = useStyles(); // Call useStyles unconditionally at the top level
+
+  // Redirect to admin login if no token exists
+  if (!adminToken) {
+    return <Redirect to="/adminlogin" />;
+  }
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
   const handleDrawerClose = () => {
     setMobileOpen(false);
   };
 
-  const classes = useStyles();
   return (
     <div>
       <Navbar handleDrawerToggle={handleDrawerToggle} />
-
       <Sidebar
         mobileOpen={mobileOpen}
         handleDrawerToggle={handleDrawerToggle}
         handleDrawerClose={handleDrawerClose}
       />
-      {/* {success ? <FlashMessage message={"Your are logedIn"} /> : ""} */}
       <Box className={classes.wrapper}>
         <Switch>
           <Route path="/admin" exact component={Dashboard} />
@@ -107,7 +76,6 @@ function HeaderComponent() {
           <Route path="/expense" exact component={Expense} />
           <Route path="/expense/add" exact component={AddExpense} />
           <Route path="/expense/:id" exact component={EditExpense} />
-
           <Route path="/products" exact component={Products} />
           <Route path="/products/add" exact component={AddNewProduct} />
           <Route path="/products/:id" exact component={SingleProduct} />
@@ -115,7 +83,6 @@ function HeaderComponent() {
           <Route path="/sales/:saleId" exact component={SingleSale} />
           <Route path="/orders" exact component={Order} />
           <Route path="/ordermanual" exact component={ManualOrder} />
-
           <Route path="/ordermanual/add" exact component={AddOrder} />
           <Route path="/category" exact component={Category} />
           <Route path="/category/add" exact component={AddCategory} />

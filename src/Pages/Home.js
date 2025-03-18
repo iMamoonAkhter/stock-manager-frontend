@@ -28,7 +28,7 @@ function Home() {
   // const [items, setItem] = useState([]);
   // useEffect(async () => {
   //   await axios
-  //     .get("https://stock-manager-backend-indol.vercel.app/API/products")
+  //     .get("http://localhost:8000/API/products")
   //     .then((res) => {
   //       let getitems = res.data;
   //       setItem(getitems);

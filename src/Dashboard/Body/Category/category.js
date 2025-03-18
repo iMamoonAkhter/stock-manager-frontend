@@ -48,7 +48,7 @@ function Category() {
   const handleDelete = (_id) => {
     console.log(_id);
     axios
-      .delete(`https://stock-manager-backend-indol.vercel.app/API/categories/${_id}`)
+      .delete(`http://localhost:8000/API/categories/${_id}`)
       .then((res) => {
         // history.push("http://localhost:3000/store");
         console.log(res.data);
@@ -110,7 +110,7 @@ function Category() {
 
   useEffect(() => {
     axios
-      .get(`https://stock-manager-backend-indol.vercel.app/API/categories/${tenantID}`)
+      .get(`http://localhost:8000/API/categories/${tenantID}`)
       .then((res, req) => {
         // history.push("http://localhost:3000/store");
         console.log(res.data);

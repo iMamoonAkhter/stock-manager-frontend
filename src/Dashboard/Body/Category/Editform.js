@@ -34,7 +34,7 @@ function Editform({ _id, id, name }) {
   const { register, handleSubmit, reset, control } = useForm();
   const functionName = async (data) => {
     axios
-      .put(`https://stock-manager-backend-indol.vercel.app/API/categories/${_id}`, data)
+      .put(`http://localhost:8000/API/categories/${_id}`, data)
       .then((res) => {
         console.log(res.data);
         setSuccess(true);

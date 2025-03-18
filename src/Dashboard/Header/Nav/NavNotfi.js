@@ -37,7 +37,7 @@ function NavNotfi() {
   const [TenantItem, setTenantItem] = useState([]);
   useEffect(() => {
     axios
-      .get(`https://stock-manager-backend-indol.vercel.app/API/tenant/Admin/${id}`)
+      .get(`http://localhost:8000/API/tenant/Admin/${id}`)
 
       .then((res) => {
         debugger;

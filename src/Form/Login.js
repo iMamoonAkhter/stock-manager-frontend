@@ -49,6 +49,15 @@ function Login() {
     resolver: yupResolver(schema),
   });
 
+
+  // Check if token exists on component mount
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      history.push("/store"); // Redirect to store if token exists
+    }
+  }, [history]);
+
   // const [available, setAvailable] = useState("");
   // const [category, setCategory] = useState("");
   // const [selectedDate, setSelectedDate] = useState("");
@@ -57,7 +66,7 @@ function Login() {
   // const onSubmit = (data) => console.log(data);
   const functionName = async (data) => {
     axios
-      .post("https://stock-manager-backend-indol.vercel.app/API/users/login", data)
+      .post("http://localhost:8000/API/users/login", data)
       .then((res) => {
         const { token, users } = res.data;
         localStorage.setItem("token", token);

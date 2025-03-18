@@ -33,7 +33,7 @@ let schema = yup.object().shape({
   email: yup.string().email().required(),
   password: yup.string().required(),
 });
-function Login() {
+function AdminLogin() {
   let history = useHistory();
   const classes = useStyles();
   const [loginMessage, setLoginMessage] = useState("");
@@ -46,6 +46,15 @@ function Login() {
   } = useForm({
     resolver: yupResolver(schema),
   });
+
+
+  // Check if admin token exists on component mount
+  useEffect(() => {
+    const adminToken = localStorage.getItem("admintoken");
+    if (adminToken) {
+      history.push("/admin"); // Redirect to admin dashboard if token exists
+    }
+  }, [history]);
   // const [available, setAvailable] = useState("");
   // const [category, setCategory] = useState("");
   // const [selectedDate, setSelectedDate] = useState("");
@@ -55,7 +64,7 @@ function Login() {
   const functionName = (data) => {
     debugger;
     axios
-      .post("https://stock-manager-backend-indol.vercel.app/API/admin/login", data)
+      .post("http://localhost:8000/API/admin/login", data)
       .then((res) => {
         debugger;
         console.log(res, "res");
@@ -158,4 +167,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default AdminLogin;

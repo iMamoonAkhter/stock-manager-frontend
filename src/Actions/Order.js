@@ -6,7 +6,7 @@ const userId = localStorage.getItem("userID");
 export const OrderCheckout = (payload) => {
   // debugger;
   axios
-    .post(`https://stock-manager-backend-indol.vercel.app/API/orders/placeOrder/${userId}`, payload)
+    .post(`http://localhost:8000/API/orders/placeOrder/${userId}`, payload)
     .then((res) => {
       // debugger;
       console.log("add cart response", res.data);
@@ -17,7 +17,7 @@ export const OrderCheckout = (payload) => {
 export const getOrders = (setData) => {
   // debugger;
   axios
-    .get(`https://stock-manager-backend-indol.vercel.app/API/orders/tenant/${tenantID}`)
+    .get(`http://localhost:8000/API/orders/tenant/${tenantID}`)
     .then((res) => {
       console.log(res);
       let managedData = res.data.map((item) => {
@@ -40,7 +40,7 @@ export const getOrders = (setData) => {
 export const getManualOrders = (setData) => {
   // debugger;
   axios
-    .get(`https://stock-manager-backend-indol.vercel.app/API/ManualOrders/tenant/${tenantID}`)
+    .get(`http://localhost:8000/API/ManualOrders/tenant/${tenantID}`)
     .then((res) => {
       console.log(res);
       let managedData = res.data.map((item) => {
@@ -64,7 +64,7 @@ export const orderplaced = (id) => {
   // debugger;
 
   axios
-    .put(`https://stock-manager-backend-indol.vercel.app/API/orders/${id}`)
+    .put(`http://localhost:8000/API/orders/${id}`)
     .then((res) => {
       // debugger;
       console.log("placedorder   ", res.data);
@@ -76,7 +76,7 @@ export const UpdateManualOrderPlaced = (id) => {
   // debugger;
 
   axios
-    .put(`https://stock-manager-backend-indol.vercel.app/API/ManualOrders/${id}`)
+    .put(`http://localhost:8000/API/ManualOrders/${id}`)
     .then((res) => {
       // debugger;
       console.log("UpdateManualOrderPlaced   ", res.data);
@@ -89,7 +89,7 @@ export const placeManualOrder = (data) => {
 
   axios
     .post(
-      `https://stock-manager-backend-indol.vercel.app/API/ManualOrders/ManualOrder/${data.tenant_id}`,
+      `http://localhost:8000/API/ManualOrders/ManualOrder/${data.tenant_id}`,
       data
     )
     .then((res) => {

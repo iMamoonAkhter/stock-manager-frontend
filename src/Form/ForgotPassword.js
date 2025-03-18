@@ -52,7 +52,7 @@ function Login() {
 
   const functionName = (data) => {
     axios
-      .put("https://stock-manager-backend-indol.vercel.app/API/users/forgetPassword", data)
+      .put("http://localhost:8000/API/users/forgetPassword", data)
       .then((res) => {
         console.log(res, "res");
 

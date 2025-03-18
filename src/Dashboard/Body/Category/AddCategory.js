@@ -71,7 +71,7 @@ function AddCategory() {
   };
   const functionName = async (data) => {
     axios
-      .post(`https://stock-manager-backend-indol.vercel.app/API/categories/${tenantID}`, data)
+      .post(`http://localhost:8000/API/categories/${tenantID}`, data)
       .then((res) => {
         console.log(res.data);
         setSuccess(true);
@@ -88,6 +88,7 @@ function AddCategory() {
   const onSubmit = (data) => {
     console.log(data);
     const myTenantId = localStorage.getItem("tenantId");
+    console.log("My Tenat ID: ",myTenantId)
     data.tenant_id = myTenantId;
     functionName(data);
     reset();
