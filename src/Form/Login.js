@@ -66,7 +66,7 @@ function Login() {
   // const onSubmit = (data) => console.log(data);
   const functionName = async (data) => {
     axios
-      .post("http://localhost:8000/API/users/login", data)
+      .post("https://stock-manager-backend-indol.vercel.app/API/users/login", data)
       .then((res) => {
         const { token, users } = res.data;
         localStorage.setItem("token", token);

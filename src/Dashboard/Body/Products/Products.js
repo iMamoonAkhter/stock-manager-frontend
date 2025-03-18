@@ -49,7 +49,7 @@ function Products() {
     console.log(_id);
 
     axios
-      .delete(`http://localhost:8000/API/products/${_id}`)
+      .delete(`https://stock-manager-backend-indol.vercel.app/API/products/${_id}`)
       .then((res) => {
         // history.push("http://localhost:3000/store");
         console.log(res.data);
@@ -65,7 +65,7 @@ function Products() {
 
   useEffect(async () => {
     await axios
-      .get(`http://localhost:8000/API/products/tenant/${tenantID}`)
+      .get(`https://stock-manager-backend-indol.vercel.app/API/products/tenant/${tenantID}`)
       .then((res, req) => {
         // history.push("http://localhost:3000/store");
         console.log(res.data);
@@ -88,7 +88,7 @@ function Products() {
         return (
           <>
             <img
-              src={`http://localhost:8000/uploads/${params.row.picture}`}
+              src={`https://stock-manager-backend-indol.vercel.app/uploads/${params.row.picture}`}
               style={{ width: "50px", height: "50px", marginRight: "5px" }}
               alt=""
             />

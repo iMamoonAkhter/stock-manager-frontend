@@ -39,7 +39,7 @@ const f2 = async () => {
   console.log("from Activation api");
 
   axios
-    .post("http://localhost:8000/API/admin/ActivateAccount", data)
+    .post("https://stock-manager-backend-indol.vercel.app/API/admin/ActivateAccount", data)
     .then((res) => {
       // history.push("http://localhost:3000/store");
       console.log(res.data);
@@ -68,7 +68,7 @@ function Login() {
     }
 
     // axios
-    //   .get(`http://localhost:8000/API/tenant/Admin/${id}`)
+    //   .get(`https://stock-manager-backend-indol.vercel.app/API/tenant/Admin/${id}`)
     //   .then((res) => {
     //     debugger;
     //     console.log(res.data);
@@ -85,7 +85,7 @@ function Login() {
     debugger;
     const id = localStorage.getItem("adminID");
     axios
-      .get(`http://localhost:8000/API/tenant/Admin/${id}`)
+      .get(`https://stock-manager-backend-indol.vercel.app/API/tenant/Admin/${id}`)
       .then((res) => {
         debugger;
         console.log(res.data);
@@ -101,7 +101,7 @@ function Login() {
     debugger;
     const id = localStorage.getItem("adminID");
     axios
-      .delete(`http://localhost:8000/API/tenant/${id}/${Tenant_id}`)
+      .delete(`https://stock-manager-backend-indol.vercel.app/API/tenant/${id}/${Tenant_id}`)
       .then((res) => {
         debugger;
         console.log(res.data);

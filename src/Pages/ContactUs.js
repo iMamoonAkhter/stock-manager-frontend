@@ -42,7 +42,7 @@ function UserRegister() {
   let { _id } = useParams();
   const functionName = async (info) => {
     axios
-      .post(`http://localhost:8000/API/feedback/${_id}`, info)
+      .post(`https://stock-manager-backend-indol.vercel.app/API/feedback/${_id}`, info)
       .then((res) => {
         console.log(res.data);
         setSuccess(true);

@@ -20,7 +20,7 @@ const f2 = async () => {
   console.log("from Activation api");
 
   axios
-    .post("http://localhost:8000/API/users/ActivateAccount", data)
+    .post("https://stock-manager-backend-indol.vercel.app/API/users/ActivateAccount", data)
     .then((res) => {
       // history.push("http://localhost:3000/store");
       console.log(res, "user activated");

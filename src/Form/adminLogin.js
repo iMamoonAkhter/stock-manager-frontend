@@ -64,7 +64,7 @@ function AdminLogin() {
   const functionName = (data) => {
     debugger;
     axios
-      .post("http://localhost:8000/API/admin/login", data)
+      .post("https://stock-manager-backend-indol.vercel.app/API/admin/login", data)
       .then((res) => {
         debugger;
         console.log(res, "res");

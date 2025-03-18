@@ -2,7 +2,7 @@ import axios from "axios";
 let tenantID = localStorage.getItem("tenantId");
 export const editCategory = (data, history, id, setSuccess) => {
   axios
-    .put(`http://localhost:8000/API/categories/${id}`, data)
+    .put(`https://stock-manager-backend-indol.vercel.app/API/categories/${id}`, data)
     .then((res) => {
       console.log("add cart response    ", res.data);
       setSuccess(true);
@@ -13,7 +13,7 @@ export const editCategory = (data, history, id, setSuccess) => {
 export const getCategory = (id, setData) => {
   debugger;
   axios
-    .get(`http://localhost:8000/API/categories/tenant/${id}`, id)
+    .get(`https://stock-manager-backend-indol.vercel.app/API/categories/tenant/${id}`, id)
     .then((res) => {
       debugger;
       console.log("add cart response    ", res.data);

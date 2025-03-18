@@ -43,7 +43,7 @@ const functionName = async (info, history) => {
   console.log(info.Tenant_name);
   //   debugger;
   axios
-    .post(`http://localhost:8000/API/tenant/addTenant/${id}`, Passdata)
+    .post(`https://stock-manager-backend-indol.vercel.app/API/tenant/addTenant/${id}`, Passdata)
     .then((res) => {
       debugger;
       console.log(res.data);

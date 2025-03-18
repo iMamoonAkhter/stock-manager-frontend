@@ -61,7 +61,7 @@ function AddNewOrder() {
 
   // useEffect(async () => {
   //   await axios
-  //     .get("http://localhost:8000/API/categories")
+  //     .get("https://stock-manager-backend-indol.vercel.app/API/categories")
   //     .then((res, req) => {
   //       // history.push("http://localhost:3000/store");
   //       console.log(res.data);
@@ -88,7 +88,7 @@ function AddNewOrder() {
 
   const functionName = async (data) => {
     axios
-      .post(`http://localhost:8000/API/expense/${tenantID}`, data)
+      .post(`https://stock-manager-backend-indol.vercel.app/API/expense/${tenantID}`, data)
       .then((res) => {
         console.log(res.data);
         setSuccess(true);

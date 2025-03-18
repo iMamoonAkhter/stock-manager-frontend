@@ -63,7 +63,7 @@ function SingleProduct() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/API/categories/${tenantID}`)
+      .get(`https://stock-manager-backend-indol.vercel.app/API/categories/${tenantID}`)
       .then((res) => {
         debugger;
         console.log(res.data);
@@ -76,7 +76,7 @@ function SingleProduct() {
   }, []);
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/API/products/${id}`)
+      .get(`https://stock-manager-backend-indol.vercel.app/API/products/${id}`)
       .then((res) => {
         debugger;
         // history.push("http://localhost:3000/store");
@@ -93,12 +93,12 @@ function SingleProduct() {
   //   debugger;
   //   axios({
   //     method: "put",
-  //     url: `http://localhost:8000/API/products/${id}`,
+  //     url: `https://stock-manager-backend-indol.vercel.app/API/products/${id}`,
   //     data: data,
   //     headers: { "Content-Type": "form-data" },
   //   })
   //     // axios
-  //     //   .put(`http://localhost:8000/API/products/${id}`, data)
+  //     //   .put(`https://stock-manager-backend-indol.vercel.app/API/products/${id}`, data)
   //     .then((res) => {
   //       debugger;
   //       // history.push("http://localhost:3000/store");
@@ -151,7 +151,7 @@ function SingleProduct() {
     console.log("clicked");
     axios({
       method: "put",
-      url: `http://localhost:8000/API/products/${id}`,
+      url: `https://stock-manager-backend-indol.vercel.app/API/products/${id}`,
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
@@ -336,7 +336,7 @@ function SingleProduct() {
               >
                 <Grid item>
                   <img
-                    src={`http://localhost:8000/uploads/${
+                    src={`https://stock-manager-backend-indol.vercel.app/uploads/${
                       showImage ? showImage : rowdata.picture
                     }`}
                     alt="photo"

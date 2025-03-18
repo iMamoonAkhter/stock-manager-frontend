@@ -61,7 +61,7 @@ function Menu({ items, categories }) {
                     <Grid item>
                       <img
                         className={classes.itemimg}
-                        src={`http://localhost:8000/uploads/${picture}`}
+                        src={`https://stock-manager-backend-indol.vercel.app/uploads/${picture}`}
                         alt={name}
                       />
                     </Grid>
@@ -121,7 +121,7 @@ function Menu({ items, categories }) {
                     <Grid item>
                       <img
                         className={classes.itemimg}
-                        src={`http://localhost:8000/uploads/${picture}`}
+                        src={`https://stock-manager-backend-indol.vercel.app/uploads/${picture}`}
                         alt={name}
                       />
                     </Grid>
