@@ -3,14 +3,11 @@ import React, { useEffect, useState } from "react";
 import { Button, Grid, makeStyles, Typography } from "@material-ui/core";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import EditIcon from "@material-ui/icons/Edit";
-import { FcPrint } from "react-icons/fc";
 import { Link, useRouteMatch } from "react-router-dom";
-import orders from "../OrderList";
-import { getOrders, orderplaced } from "../../../Actions/Order";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   miandiv: {
-    // width: "100%",
     height: 450,
     backgroundColor: "white",
     border: "1px dashed grey",
@@ -18,17 +15,10 @@ const useStyles = makeStyles((theme) => ({
       height: 600,
       marginTop: "2em",
     },
-    title: {
-      marginTop: "10px",
-    },
   },
   uppergrid: {
     marginTop: "2em",
     marginBottom: "1em",
-  },
-  avatar: {
-    width: "25px",
-    height: "20px",
   },
   delete: {
     color: "red",
@@ -40,59 +30,135 @@ const useStyles = makeStyles((theme) => ({
 function Order() {
   const classes = useStyles();
   let { path, url } = useRouteMatch();
-  const [data, setDate] = useState([]);
-  const handleDelete = (id) => {
-    setDate(data.filter((item) => item.id !== id));
+  const [orders, setOrders] = useState([]);
+
+  // Fetch all orders (regular and manual)
+  const fetchOrders = async () => {
+    try {
+      // Fetch regular orders
+      const regularOrdersResponse = await axios.get("https://stock-manager-backend-indol.vercel.app/API/orders/");
+      const regularOrders = regularOrdersResponse.data.map((order) => ({
+        ...order,
+        type: "Regular",
+      }));
+
+      // Fetch manual orders
+      const manualOrdersResponse = await axios.get("https://stock-manager-backend-indol.vercel.app/API/ManualOrders/");
+      const manualOrders = manualOrdersResponse.data.map((order) => ({
+        ...order,
+        type: "Manual",
+      }));
+
+      // Combine regular and manual orders
+      const combinedOrders = [...regularOrders, ...manualOrders];
+      setOrders(combinedOrders);
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+    }
   };
+
+  // Fetch orders on component mount
   useEffect(() => {
-    getOrders(setDate);
+    fetchOrders();
   }, []);
 
-  console.log(data, "data");
+  // Handle order status update
+  const handleDeliver = async (orderId, type) => {
+    try {
+      const endpoint =
+        type === "Regular"
+          ? `https://stock-manager-backend-indol.vercel.app/API/orders/${orderId}`
+          : `https://stock-manager-backend-indol.vercel.app/API/ManualOrders/${orderId}`;
+
+      await axios.put(endpoint, {
+        OrderStatus: "Completed",
+      });
+      fetchOrders(); // Refresh orders after updating status
+    } catch (error) {
+      console.error("Error updating order status:", error);
+    }
+  };
+
+  // Handle order deletion
+  const handleDelete = async (orderId, type) => {
+    try {
+      const endpoint =
+        type === "Regular"
+          ? `https://stock-manager-backend-indol.vercel.app/API/orders/${orderId}`
+          : `https://stock-manager-backend-indol.vercel.app/API/ManualOrders/${orderId}`;
+
+      await axios.delete(endpoint);
+      fetchOrders(); // Refresh orders after deletion
+    } catch (error) {
+      console.error("Error deleting order:", error);
+    }
+  };
+
+  // Define columns for the DataGrid
   const columns = [
-    { field: "id", headerName: "ID", width: 95 },
+    { field: "_id", headerName: "ID", width: 200 },
+    {
+      field: "type",
+      headerName: "Type",
+      width: 120,
+    },
     {
       field: "customerName",
-      headerName: "Customer_Name",
+      headerName: "Customer Name",
       width: 200,
+      valueGetter: (params) => {
+        if (params.row.type === "Regular") {
+          return `${params.row.user_id?.firstname} ${params.row.user_id?.lastname}`;
+        } else {
+          return params.row.name || "N/A";
+        }
+      },
     },
     {
-      field: "number",
-      headerName: "Customer_Number",
-      width: 200,
-    },
-    {
-      field: "totalprice",
-      headerName: "Total_Price",
-
-      width: 160,
+      field: "contact",
+      headerName: "Contact",
+      width: 150,
+      valueGetter: (params) => {
+        if (params.row.type === "Regular") {
+          return params.row.user_id?.contact || "N/A";
+        } else {
+          return params.row.contact || "N/A";
+        }
+      },
     },
     {
       field: "address",
       headerName: "Address",
-      type: "number",
-      width: 150,
-      editable: !true,
+      width: 200,
+      valueGetter: (params) => {
+        if (params.row.type === "Regular") {
+          return params.row.address || "N/A";
+        } else {
+          return params.row.address || "N/A";
+        }
+      },
     },
-
     {
-      field: "status",
+      field: "totalAmount",
+      headerName: "Total Amount",
+      width: 150,
+    },
+    {
+      field: "OrderStatus",
       headerName: "Status",
       width: 150,
-      editable: true,
     },
     {
-      field: "print",
-      headerName: "Print",
+      field: "deliver",
+      headerName: "Deliver",
       renderCell: (params) => {
         return (
           <>
-            {params.row.status === "pending" && (
+            {params.row.OrderStatus === "pending" && (
               <Button
                 variant="contained"
-                fullWidth
-                style={{ cursor: "pointer" }}
-                onClick={() => orderplaced(params.row.id)}
+                color="primary"
+                onClick={() => handleDeliver(params.row._id, params.row.type)}
               >
                 Deliver
               </Button>
@@ -101,7 +167,6 @@ function Order() {
         );
       },
       width: 150,
-      editable: true,
     },
     {
       field: "action",
@@ -111,16 +176,12 @@ function Order() {
           <>
             <Button
               variant="contained"
-              style={{
-                marginRight: "5px",
-                cursor: "pointer",
-              }}
-              onClick={() => handleDelete(params.row.id)}
+              style={{ marginRight: "5px", cursor: "pointer" }}
+              onClick={() => handleDelete(params.row._id, params.row.type)}
             >
               <DeleteOutlineIcon style={{ color: "red", marginRight: "5px" }} />
             </Button>
-
-            <Link to={`${url}/${params.row.id}`}>
+            <Link to={`${url}/${params.row._id}`}>
               <Button variant="contained">
                 <EditIcon style={{ color: "blue", cursor: "pointer" }} />
               </Button>
@@ -132,17 +193,6 @@ function Order() {
     },
   ];
 
-  const rows = [
-    {
-      id: 1,
-      CustomerName: "Ahsan123",
-      number: "03134162172",
-      totalprice: 1290,
-      totalproducts: 3,
-      status: "paid",
-    },
-  ];
-
   return (
     <>
       <Grid
@@ -150,26 +200,11 @@ function Order() {
         justifyContent="space-between"
         alignItems="center"
         className={classes.uppergrid}
-        // direction="column"
       >
         <Grid item>
-          <Typography variant="h3" className={classes.title}>
-            Online Order
-          </Typography>
+          <Typography variant="h3">All Orders</Typography>
         </Grid>
         <Grid item>
-          {/* <Button
-            to="/order"
-            component={Link}
-            style={{
-              marginRight: "5px",
-              backgroundColor: "Green",
-              color: "white",
-            }}
-            variant="contained"
-          >
-            Online Order
-          </Button> */}
           <Button
             to="/ordermanual"
             component={Link}
@@ -179,30 +214,16 @@ function Order() {
             Manual Order
           </Button>
         </Grid>
-
-        {/* <Grid item>
-          <Link to={`${url}/add`} style={{ textDecoration: "none" }}>
-            <Button
-              variant="contained"
-              style={{
-                backgroundColor: "green",
-                color: "white",
-                cursor: "pointer",
-              }}
-            >
-              Add Order
-            </Button>
-          </Link>
-        </Grid> */}
       </Grid>
       <div className={classes.miandiv}>
-        {data.length > 0 && (
+        {orders.length > 0 && (
           <DataGrid
-            rows={data}
+            rows={orders}
             columns={columns}
             pageSize={5}
             checkboxSelection
             disableSelectionOnClick
+            getRowId={(row) => row._id} // Use _id as the unique identifier
           />
         )}
       </div>

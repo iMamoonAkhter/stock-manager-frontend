@@ -3,7 +3,7 @@ import Menu from "./menu";
 import Category from "./categories";
 import items from "../data/data";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 // let items = [];
 // axios
 //   .get("https://stock-manager-backend-indol.vercel.app/API/products")
@@ -63,7 +63,6 @@ function Main() {
   const allCategories = ["all", ...new Set(items.map((item) => item.category))];
   // console.log(allCategories);
   const [categories, setCategories] = useState([]);
-  console.log("awaaaaa", allCategories);
   const [menuItems, setmenuItem] = useState(categories);
 
   const filterItem = (category) => {
@@ -74,7 +73,6 @@ function Main() {
     const newItems = items.filter((item) => item.category === category);
     setmenuItem(newItems);
   };
-  console.log("sssss::", menuItems);
 
   return (
     <div>

@@ -19,6 +19,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // PrivateRoute for authenticated users/admins
 const PrivateRoute = ({ component: Component, isAdmin, ...rest }) => {
   const token = localStorage.getItem(isAdmin ? "admintoken" : "token");
+  console.log(`PrivateRoute: isAdmin=${isAdmin}, token=${token}`);
   return (
     <Route
       {...rest}
@@ -36,6 +37,7 @@ const PrivateRoute = ({ component: Component, isAdmin, ...rest }) => {
 // PublicRoute for login/signup pages (restrict access if token exists)
 const PublicRoute = ({ component: Component, isAdmin, ...rest }) => {
   const token = localStorage.getItem(isAdmin ? "admintoken" : "token");
+  console.log(`PublicRoute: isAdmin=${isAdmin}, token=${token}`);
   return (
     <Route
       {...rest}
@@ -51,12 +53,32 @@ const PublicRoute = ({ component: Component, isAdmin, ...rest }) => {
 };
 
 function App() {
+  const clientToken = localStorage.getItem("token");
+  const adminToken = localStorage.getItem("admintoken");
+
+  console.log("App: Client Token:", clientToken);
+  console.log("App: Admin Token:", adminToken);
+
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Switch>
+          {/* Redirect based on token */}
+          <Route
+            exact
+            path="/"
+            render={() => {
+              if (clientToken) {
+                return <Redirect to="/store" />;
+              } else if (adminToken) {
+                return <Redirect to="/admin" />;
+              } else {
+                return <Login />;
+              }
+            }}
+          />
+
           {/* Public Routes */}
-          <PublicRoute path="/" exact component={Login} isAdmin={false} />
           <PublicRoute path="/adminlogin" exact component={AdminLogin} isAdmin={true} />
           <PublicRoute path="/tenantlogin" exact component={TenantLogin} isAdmin={false} />
           <PublicRoute path="/tenantlogin/:token" exact component={TenantLogin} isAdmin={false} />
@@ -73,10 +95,18 @@ function App() {
           <PrivateRoute path="/admin/:token" exact component={Admin} isAdmin={true} />
           <PrivateRoute path="/store" exact component={Store} isAdmin={false} />
           <PrivateRoute path="/store/:token" exact component={Store} isAdmin={false} />
+
+          {/* Fallback Route */}
+          <Route
+            render={() => {
+              console.log("No route matched, rendering fallback");
+              return <div>404 - Page Not Found</div>;
+            }}
+          />
         </Switch>
       </BrowserRouter>
     </ThemeProvider>
   );
 }
 
-export default App;
+export default App

@@ -2,7 +2,6 @@ import axios from "axios";
 
 let tenantID = localStorage.getItem("tenantId");
 const userId = localStorage.getItem("userID");
-
 export const OrderCheckout = (payload) => {
   // debugger;
   axios

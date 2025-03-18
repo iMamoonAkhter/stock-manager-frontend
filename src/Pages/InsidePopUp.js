@@ -1,19 +1,14 @@
-import { Box, Button, Grid, TextField, Typography } from "@material-ui/core";
-import React, { useState, useEffect } from "react";
+import { Button, Grid } from "@material-ui/core";
+import React from "react";
 import { makeStyles } from "@material-ui/core";
-import { useForm, Controller } from "react-hook-form";
-import { useHistory } from "react-router";
-import axios from "axios";
-import { BiLogInCircle } from "react-icons/bi";
 import { FcDecision } from "react-icons/fc";
-import { Link } from "react-router-dom";
+
 const useStyles = makeStyles((theme) => ({
   div: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
   },
-
   maingrid: {
     backgroundColor: "white",
     padding: "20px",
@@ -28,10 +23,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function InsidePopup(props) {
-  let history = useHistory();
+function InsidePopup({ openPopup, handleCheckout, setOpenAddressEditPopup }) {
   const classes = useStyles();
-  const { openPopup, handleCheckout } = props;
+
   return (
     <div className={classes.div}>
       <Grid
@@ -41,9 +35,7 @@ function InsidePopup(props) {
         direction="column"
       >
         <Grid item>
-          <Button component={Link} to="/store">
-            <FcDecision size="small" />
-          </Button>
+          <FcDecision size="small" />
         </Grid>
         <Grid
           container
@@ -56,8 +48,7 @@ function InsidePopup(props) {
             <Button
               variant="contained"
               color="primary"
-              component={Link}
-              to="/store"
+              onClick={() => setOpenAddressEditPopup(true)} // Open address edit popup
             >
               Edit Address
             </Button>

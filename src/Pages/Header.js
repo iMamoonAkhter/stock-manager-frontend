@@ -15,6 +15,8 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { List } from "@material-ui/core";
 import { ListItem } from "@material-ui/core";
 import { ListItemText } from "@material-ui/core";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
+
 
 const useStyle = makeStyles((theme) => ({
   toolbar: {
@@ -73,6 +75,7 @@ function Header() {
   const classes = useStyle();
   const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent); // Fixed: Removed process.browser
   const theme = useTheme();
+  const history = useHistory();
   const matches = useMediaQuery(theme.breakpoints.down("md"));
 
   useEffect(() => {
@@ -90,7 +93,9 @@ function Header() {
   };
 
   const logoutfunction = () => {
+    console.log("Function called")
     localStorage.removeItem("token");
+    history().push("/");
   };
 
   const _id = localStorage.getItem("userID");
@@ -184,9 +189,8 @@ function Header() {
           <ListItem
             divider
             button
-            onClick={() => setOpenDrawer(false)}
+            onClick={() => logoutfunction()}
             component={Link}
-            to=""
             style={{ backgroundColor: "#f50057" }}
           >
             <ListItemText>Log Out</ListItemText>

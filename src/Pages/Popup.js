@@ -15,7 +15,7 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal({ openPopup, handleCheckout }) {
+export default function BasicModal({ openPopup, handleCheckout, setOpenAddressEditPopup  }) {
   //   const [open, setOpen] = React.useState(false);
   //   const handleOpen = () => setOpen(true);
   //   const handleClose = () => setOpen(false);
@@ -24,7 +24,7 @@ export default function BasicModal({ openPopup, handleCheckout }) {
     <div>
       <Modal open={openPopup} onClose={openPopup}>
         <Box sx={style}>
-          <InsidePopup openPopup={openPopup} handleCheckout={handleCheckout} />
+          <InsidePopup openPopup={openPopup} handleCheckout={handleCheckout} setOpenAddressEditPopup={setOpenAddressEditPopup}  />
         </Box>
       </Modal>
     </div>
