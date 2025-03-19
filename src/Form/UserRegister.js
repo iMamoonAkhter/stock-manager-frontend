@@ -98,7 +98,7 @@ function UserRegister() {
       })
       .catch((err) => {
         console.error(err);
-        toast.error(err.message);
+        toast.error(err.response.data.message);
       });
     setSuccess(false);
   };

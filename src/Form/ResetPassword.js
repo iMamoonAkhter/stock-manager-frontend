@@ -63,13 +63,12 @@ function Login() {
         history.push("/");
       })
       .catch((err) => {
-        toast.error(err.message);
+        toast.error(err.response.data.message);
         
       });
   };
 
   const onSubmit = (data) => {
-    console.log(data);
     functionName(data);
     // history.push("/admin");
   };
