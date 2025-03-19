@@ -90,17 +90,14 @@ function AddNewOrder() {
     axios
       .post(`https://stock-manager-backend-indol.vercel.app/API/expense/${tenantID}`, data)
       .then((res) => {
-        console.log(res.data);
         setSuccess(true);
       })
       .catch((err) => {
-        console.log(err);
       });
     setSuccess(false);
   };
 
   const onSubmit = (data) => {
-    console.log(data);
     functionName(data);
   };
   return (
@@ -326,7 +323,6 @@ function AddNewOrder() {
             </Grid>
           </Grid>
         </form>
-        {success ? <FlashMessage message={"Expense Added"} /> : ""}
       </Grid>
     </div>
   );

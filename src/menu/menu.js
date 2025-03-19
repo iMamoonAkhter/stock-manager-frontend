@@ -31,7 +31,6 @@ const useStyle = makeStyles({
 
 function Menu({ items, categories }) {
   useEffect(() => {}, [categories]);
-  console.log("items", items);
   const classes = useStyle();
   return (
     <Grid

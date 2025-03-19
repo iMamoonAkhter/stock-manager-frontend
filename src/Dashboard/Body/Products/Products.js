@@ -8,6 +8,7 @@ import { Link, useHistory, useRouteMatch } from "react-router-dom";
 import FlashMessage from "../../../Pages/FlashMessage";
 import sales from "../DisplayItem";
 import axios from "axios";
+import { toast } from "react-toastify";
 const useStyles = makeStyles((theme) => ({
   miandiv: {
     // width: "100%",
@@ -46,20 +47,19 @@ function Products() {
   let history = useHistory();
 
   const handleDelete = (_id) => {
-    console.log(_id);
 
     axios
       .delete(`https://stock-manager-backend-indol.vercel.app/API/products/${_id}`)
       .then((res) => {
         // history.push("http://localhost:3000/store");
-        console.log(res.data);
+        toast.success(res.data.message);
 
         setRowdata(rowdata);
         setSuccess(true);
         history.push("/admin");
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
 
@@ -68,12 +68,11 @@ function Products() {
       .get(`https://stock-manager-backend-indol.vercel.app/API/products/tenant/${tenantID}`)
       .then((res, req) => {
         // history.push("http://localhost:3000/store");
-        console.log(res.data);
 
         setRowdata(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   }, []);
 
@@ -205,7 +204,7 @@ function Products() {
           />
         </div>
       )}
-      {success ? <FlashMessage message={"Category Delete"} /> : ""}
+      {/* {success ? <FlashMessage message={"Category Delete"} /> : ""} */}
     </>
   );
 }

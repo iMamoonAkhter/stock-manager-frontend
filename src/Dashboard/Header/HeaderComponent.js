@@ -43,11 +43,9 @@ function HeaderComponent() {
   const adminToken = localStorage.getItem("admintoken");
   const classes = useStyles();
 
-  console.log("HeaderComponent: Admin Token:", adminToken);
 
   // Redirect to admin login if no token exists
   if (!adminToken) {
-    console.log("No admin token, redirecting to /adminlogin");
     return <Redirect to="/adminlogin" />;
   }
 

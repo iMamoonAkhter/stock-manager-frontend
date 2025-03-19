@@ -16,11 +16,11 @@ import ResetPassword from "../src/Form/ResetPassword";
 import AdminResetPass from "./Form/AdminResetPass";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Bounce, ToastContainer } from "react-toastify";
-
+import 'react-toastify/dist/ReactToastify.css';
 // PrivateRoute for authenticated users/admins
 const PrivateRoute = ({ component: Component, isAdmin, ...rest }) => {
   const token = localStorage.getItem(isAdmin ? "admintoken" : "token");
-  console.log(`PrivateRoute: isAdmin=${isAdmin}, token=${token}`);
+  //console.log(`PrivateRoute: isAdmin=${isAdmin}, token=${token}`);
   return (
     <Route
       {...rest}
@@ -38,7 +38,7 @@ const PrivateRoute = ({ component: Component, isAdmin, ...rest }) => {
 // PublicRoute for login/signup pages (restrict access if token exists)
 const PublicRoute = ({ component: Component, isAdmin, ...rest }) => {
   const token = localStorage.getItem(isAdmin ? "admintoken" : "token");
-  console.log(`PublicRoute: isAdmin=${isAdmin}, token=${token}`);
+  //console.log(`PublicRoute: isAdmin=${isAdmin}, token=${token}`);
   return (
     <Route
       {...rest}
@@ -112,7 +112,7 @@ function App() {
           {/* Fallback Route */}
           <Route
             render={() => {
-              console.log("No route matched, rendering fallback");
+              //console.log("No route matched, rendering fallback");
               return <div>404 - Page Not Found</div>;
             }}
           />

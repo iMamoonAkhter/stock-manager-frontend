@@ -7,6 +7,7 @@ import pic from "../../../pics/m1.jpg";
 import { Link, useRouteMatch, useHistory } from "react-router-dom";
 import sales from "../DisplayItem";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const useStyles = makeStyles((theme) => ({
   miandiv: {
@@ -48,19 +49,19 @@ function Expense() {
   // };
 
   const handleDelete = (_id) => {
-    console.log(_id);
     axios
       .delete(`https://stock-manager-backend-indol.vercel.app/API/expense/${_id}`)
       .then((res) => {
         // history.push("http://localhost:3000/store");
-        console.log(res.data);
 
         setRowdata(rowdata);
+        toast.success("Expense Deleted Successfully");
 
         history.push("/admin");
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
+        toast.error("Error Deleting Expense");
       });
   };
 
@@ -137,15 +138,13 @@ function Expense() {
       .get(`https://stock-manager-backend-indol.vercel.app/API/expense/tenant/${tenantID}`)
       .then((res, req) => {
         // history.push("http://localhost:3000/store");
-        console.log(res.data);
 
         setRowdata(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   }, []);
-  console.log(rowdata);
   return (
     <>
       <Grid

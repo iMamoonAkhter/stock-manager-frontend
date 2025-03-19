@@ -9,6 +9,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link } from "react-router-dom";
 import FlashMessage from "../Pages/FlashMessage";
+import { toast } from "react-toastify";
 const useStyles = makeStyles((theme) => ({
   div: {
     display: "flex",
@@ -67,23 +68,21 @@ function AdminLogin() {
       .post("https://stock-manager-backend-indol.vercel.app/API/admin/login", data)
       .then((res) => {
         debugger;
-        console.log(res, "res");
         const { token, admins } = res.data;
         localStorage.setItem("admintoken", token);
         localStorage.setItem("adminID", admins._id);
         // localStorage.setItem("userID", users._id);
-        console.log(res.data);
         history.push("/tenantlogin");
+        toast.success(res.data.message);
       })
       .catch((err) => {
         setLoginMessage(err.message);
         setErrorDisplay(true);
-        console.log(err);
+        toast.error("Invalid email or password");
       });
   };
 
   const onSubmit = (data) => {
-    console.log(data);
     functionName(data);
     // history.push("/admin");
   };
@@ -162,7 +161,7 @@ function AdminLogin() {
           </form>
         </Grid>
       </div>
-      {ErrorDisplay && <FlashMessage message={loginMessage} />}
+      {/* {ErrorDisplay && <FlashMessage message={loginMessage} />} */}
     </>
   );
 }

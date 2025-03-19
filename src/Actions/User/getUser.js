@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export const activateInActiveUser = (data, setRowdata) => {
   debugger;
@@ -12,9 +13,9 @@ export const activateInActiveUser = (data, setRowdata) => {
     .then((res) => {
       debugger;
       getAllUser(setRowdata);
-      console.log("add cart response    ", res.data);
+      toast.success(res.data.message);
     })
-    .then((error) => console.log(error));
+    .then((error) => console.error(error));
 };
 
 export const getAllUser = (setRowdata) => {
@@ -23,10 +24,9 @@ export const getAllUser = (setRowdata) => {
     .get("https://stock-manager-backend-indol.vercel.app/API/users")
     .then((res) => {
       debugger;
-      console.log(res.data);
       setRowdata(res.data);
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
     });
 };

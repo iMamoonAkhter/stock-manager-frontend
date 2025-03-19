@@ -206,7 +206,6 @@ function AddNewOrder() {
     setItemTotal(getTotal);
     setRowdata(filteredItem);
   };
-  console.log(rowdata, "rowdata");
 
   useEffect(async () => {
     await axios
@@ -215,7 +214,7 @@ function AddNewOrder() {
         setRowdata(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   }, []);
 
@@ -238,7 +237,6 @@ function AddNewOrder() {
   };
   const onSubmit = (data) => {
     debugger;
-    console.log(data, "data");
     const tenantId = localStorage.getItem("tenantId");
     let getTotal = 0;
     const checkData = rowdata
@@ -267,7 +265,6 @@ function AddNewOrder() {
   };
   const onSubmit1 = (data1) => {
     debugger;
-    console.log(data1, "data1");
     setCustomOrder([...customOrder, data1]);
   };
 

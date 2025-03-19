@@ -9,24 +9,23 @@ import axios from "axios";
 import { useEffect } from "react";
 import ContactUs from "../Pages/ContactUs";
 import AboutUs from "../Pages/AboutUs";
+import { toast } from "react-toastify";
 
 const gettoken = localStorage.getItem("registertoken");
 
 const f2 = async () => {
-  console.log(gettoken, "get token");
   const data = {
     token: gettoken,
   };
-  console.log("from Activation api");
 
   axios
     .post("https://stock-manager-backend-indol.vercel.app/API/users/ActivateAccount", data)
     .then((res) => {
       // history.push("http://localhost:3000/store");
-      console.log(res, "user activated");
+      toast.success(res.data.message);
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
     });
 };
 
@@ -35,12 +34,9 @@ function Store() {
     if (localStorage.getItem("registertoken")) {
       f2();
     } else if (localStorage.getItem("token")) {
-      console.log("u r logedin");
     } else {
-      console.log("Kindly register or use correct ");
     }
   }, []);
-  console.log("sssssssd3s");
   return (
     <BrowserRouter>
       <Header />

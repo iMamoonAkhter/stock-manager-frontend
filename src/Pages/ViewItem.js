@@ -6,6 +6,7 @@ import pic from "../pics/l1.jpg";
 import { Link, useParams } from "react-router-dom";
 import FlashMessage from "./FlashMessage";
 import axios from "axios";
+import { toast } from "react-toastify";
 const useStyle = makeStyles((theme) => ({
   itemimg: {
     width: "350px",
@@ -60,12 +61,10 @@ function ViewItem() {
     axios
       .get(`https://stock-manager-backend-indol.vercel.app/API/products/${_id}`)
       .then((res) => {
-        console.log(res.data);
         setItem(res.data);
       })
-      .then((error) => console.log(error));
+      .then((error) => console.error(error));
   }, []);
-  console.log(item);
 
   let cart = {
     cartItems: {
@@ -151,24 +150,21 @@ function ViewItem() {
                 // component={Link}
                 // to="/cart"
                 onClick={() => {
-                  console.log(cart);
-                  console.log(user_id);
+                  
                   axios
                     .post(
                       `https://stock-manager-backend-indol.vercel.app/API/cart/addtocart/${user_id}/${tenantID}`,
                       cart
                     )
                     .then((res) => {
-                      console.log("add cart response    ", res.data);
-                      setSuccess(true);
+                      toast.success(res.data.message);
                     })
-                    .then((error) => console.log(error));
+                    .then((error) => toast.error(error.message || "Failed to add cart product"));
                   setSuccess(false);
                 }}
               >
                 Add to cart
               </Button>
-              {success ? <FlashMessage message={"Product Added"} /> : " "}
             </Grid>
           </Grid>
         </Grid>

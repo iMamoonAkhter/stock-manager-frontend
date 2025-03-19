@@ -8,6 +8,7 @@ import { BiLogInCircle } from "react-icons/bi";
 import FlashMessage from "../Pages/FlashMessage";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 const useStyles = makeStyles((theme) => ({
   div: {
     display: "flex",
@@ -32,20 +33,20 @@ const useStyles = makeStyles((theme) => ({
 const gettoken = localStorage.getItem("adminregistertoken");
 
 const f2 = async () => {
-  console.log(gettoken, "get token");
   const data = {
     token: gettoken,
   };
-  console.log("from Activation api");
 
   axios
     .post("https://stock-manager-backend-indol.vercel.app/API/admin/ActivateAccount", data)
     .then((res) => {
       // history.push("http://localhost:3000/store");
-      console.log(res.data);
+      toast.success(res.data.message);
     })
     .catch((err) => {
-      console.log(err);
+      toast.error(err.response.data
+        ? err.response.data.message
+        : "Server Error");
     });
 };
 
@@ -61,10 +62,8 @@ function Login() {
       f2();
       // setSuccess(true);
     } else if (localStorage.getItem("admintoken")) {
-      console.log("u r logedin");
       // setSuccess(true);
     } else {
-      console.log("Kindly register or use correct ");
     }
 
     // axios
@@ -88,12 +87,11 @@ function Login() {
       .get(`https://stock-manager-backend-indol.vercel.app/API/tenant/Admin/${id}`)
       .then((res) => {
         debugger;
-        console.log(res.data);
         setTenantItem(res.data[0].Tenant);
         //   history.push("/store");
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
 
@@ -104,19 +102,19 @@ function Login() {
       .delete(`https://stock-manager-backend-indol.vercel.app/API/tenant/${id}/${Tenant_id}`)
       .then((res) => {
         debugger;
-        console.log(res.data);
+        toast.success(res.data.message);
         getTenants();
         //   history.push("/store");
       })
       .catch((err) => {
-        console.log(err);
+        toast.error(err.response.data
+          ? err.response.data.message
+          : "Server Error");
       });
   };
   // const onSubmit = (data) => console.log(data);
-  console.log(TenantItem);
   return (
     <div className={classes.div}>
-      {success ? <FlashMessage message={"Your are logedIn"} /> : ""}
       <Grid
         container
         className={classes.maingrid}
@@ -137,7 +135,6 @@ function Login() {
           </Grid>
 
           {TenantItem.map((item) => {
-            console.log("check1", item.Tenant_name);
             return (
               <Grid item>
                 <Grid

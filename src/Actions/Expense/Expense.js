@@ -1,13 +1,14 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 export const editExpense = (data, history, id, setSuccess) => {
   axios
     .put(`https://stock-manager-backend-indol.vercel.app/API/expense/${id}`, data)
     .then((res) => {
-      console.log("add cart response    ", res.data);
+      toast.success(res.data.message);
       setSuccess(true);
       history.push("/category");
     })
-    .then((error) => console.log(error));
+    .then((error) => toast.error("Expense Update Failed"));
 };
 export const getExpense = (id, setData) => {
   debugger;
@@ -15,8 +16,8 @@ export const getExpense = (id, setData) => {
     .get(`https://stock-manager-backend-indol.vercel.app/API/expense/${id}`, id)
     .then((res) => {
       debugger;
-      console.log("add cart response    ", res.data);
+      toast.success(res.data.message);
       setData(res.data);
     })
-    .then((error) => console.log(error));
+    .then((error) => console.error(error));
 };

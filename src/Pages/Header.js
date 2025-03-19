@@ -16,6 +16,7 @@ import { List } from "@material-ui/core";
 import { ListItem } from "@material-ui/core";
 import { ListItemText } from "@material-ui/core";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import { toast } from "react-toastify";
 
 
 const useStyle = makeStyles((theme) => ({
@@ -93,9 +94,9 @@ function Header() {
   };
 
   const logoutfunction = () => {
-    console.log("Function called")
     localStorage.removeItem("token");
     history().push("/");
+    toast.success("Logged Out Successfully");
   };
 
   const _id = localStorage.getItem("userID");

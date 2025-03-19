@@ -9,6 +9,7 @@ import axios from "axios";
 import { BiLogInCircle } from "react-icons/bi";
 import FlashMessage from "../Pages/FlashMessage";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 const useStyles = makeStyles((theme) => ({
   div: {
     display: "flex",
@@ -72,19 +73,16 @@ function Login() {
         localStorage.setItem("token", token);
         localStorage.setItem("userID", users._id);
         localStorage.setItem("address", users.address);
-
-        console.log(res.data);
         history.push("/store");
+        toast.success(res.data.message);
       })
       .catch((err) => {
-        console.log(err);
-        setLoginMessage(err.message);
+        toast.error("Invalid email or password");
         setErrorDisplay(true);
       });
   };
 
   const onSubmit = (data) => {
-    console.log(data);
 
     functionName(data);
   };
@@ -164,7 +162,7 @@ function Login() {
             </Grid>
           </Grid>
         </form>
-        {ErrorDisplay && <FlashMessage message={loginMessage} />}
+        {/* {ErrorDisplay && <FlashMessage message={loginMessage} />} */}
       </Grid>
     </div>
   );

@@ -4,7 +4,7 @@ export const getSales = (setData) => {
   axios
     .get(`https://stock-manager-backend-indol.vercel.app/API/orders/sales/${tenantID}`)
     .then((res) => {
-      console.log(res);
+      //console.log(res);
       let managedData = res.data.map((item) => {
         return {
           id: item._id,
@@ -24,7 +24,7 @@ export const getManualSales = (setData) => {
   axios
     .get(`https://stock-manager-backend-indol.vercel.app/API/ManualOrders/ManualOrderSales/${tenantID}`)
     .then((res) => {
-      console.log(res);
+      //console.log(res);
       let managedData = res.data.map((item) => {
         return {
           id: item._id,

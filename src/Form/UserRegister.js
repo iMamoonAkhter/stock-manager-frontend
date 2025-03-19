@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import FlashMessage from "../Pages/FlashMessage";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { toast } from "react-toastify";
 
 const useStyles = makeStyles((theme) => ({
   div: {
@@ -91,13 +92,13 @@ function UserRegister() {
       .then((res) => {
         const { token } = res.data;
         localStorage.setItem("registertoken", token);
-        console.log(res.data);
-        setSuccess(true);
+        toast.success(res.data.message);
 
         // history.push("/login");
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
+        toast.error(err.message);
       });
     setSuccess(false);
   };
@@ -118,8 +119,7 @@ function UserRegister() {
   // };
 
   const onSubmit = (data) => {
-    console.log(errors);
-    console.log(data);
+    
     functionName(data);
   };
 
@@ -298,7 +298,7 @@ function UserRegister() {
             </Grid>
           </Grid>
         </form>
-        {success ? <FlashMessage message={"Check Email"} /> : " "}
+        {/* {success ? <FlashMessage message={"Check Email"} /> : " "} */}
       </Grid>
     </div>
   );

@@ -6,6 +6,7 @@ import { useHistory } from "react-router";
 import { Link, useParams } from "react-router-dom";
 import FlashMessage from "../../../Pages/FlashMessage";
 import axios from "axios";
+import { toast } from "react-toastify";
 const useStyles = makeStyles((theme) => ({
   img: {
     width: "250px",
@@ -25,9 +26,7 @@ const useStyles = makeStyles((theme) => ({
 function Editform({ _id, id, name }) {
   const [first, setFirst] = useState(name);
   const [sec, setSec] = useState(id);
-  console.log(id);
-  console.log(name);
-  console.log(_id);
+
   const classes = useStyles();
   const [success, setSuccess] = useState(false);
   let history = useHistory();
@@ -36,17 +35,16 @@ function Editform({ _id, id, name }) {
     axios
       .put(`https://stock-manager-backend-indol.vercel.app/API/categories/${_id}`, data)
       .then((res) => {
-        console.log(res.data);
+        toast.success(res.data.message);
         setSuccess(true);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
     setSuccess(false);
   };
 
   const onSubmit = (data) => {
-    console.log(data);
     functionName(data);
     reset();
   };
@@ -104,7 +102,6 @@ function Editform({ _id, id, name }) {
             </Grid>
           </Grid>
         </form>
-        {success ? <FlashMessage message={"Category Edit"} /> : ""}
       </Grid>
     </div>
   );

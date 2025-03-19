@@ -15,6 +15,7 @@ import {
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 import { Form } from "react-bootstrap";
+import { toast } from "react-toastify";
 const useStyles = makeStyles((theme) => ({
   img: {
     width: "250px",
@@ -68,18 +69,17 @@ function AddNewOrder() {
     axios
       .put(`https://stock-manager-backend-indol.vercel.app/API/expense/${id}`, data)
       .then((res) => {
-        console.log(res.data);
-        setSuccess(true);
+        toast.success("Expense Edited");
         history.push("/expense");
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
+        toast.error(err.message || "Server Error");
       });
     setSuccess(false);
   };
 
   const onSubmit = (data) => {
-    console.log(data);
     if (!data.product_name) {
       data.product_name = getData.product_name;
     }

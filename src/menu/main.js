@@ -41,13 +41,10 @@ function Main() {
         let getitems = res.data;
         setCategories(res.data);
         setItem(getitems);
-        console.log("ssssssssssssss:::", res.data);
       })
       .catch((err) => {
-        console.log(err);
       });
   }, []);
-  console.log(items);
   // let items = [];
   // items = axios
   //   .get("https://stock-manager-backend-indol.vercel.app/API/products")

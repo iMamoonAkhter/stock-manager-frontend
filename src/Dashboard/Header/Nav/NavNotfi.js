@@ -41,12 +41,11 @@ function NavNotfi() {
 
       .then((res) => {
         debugger;
-        console.log(res.data);
         setTenantItem(res.data[0].Tenant);
         //   history.push("/store");
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   }, []);
 

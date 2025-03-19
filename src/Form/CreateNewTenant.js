@@ -10,6 +10,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import FlashMessage from "../Pages/FlashMessage";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 const useStyles = makeStyles((theme) => ({
   div: {
     display: "flex",
@@ -40,18 +41,17 @@ const functionName = async (info, history) => {
       Tenant_id: `${info.Tenant_id}`,
     },
   };
-  console.log(info.Tenant_name);
   //   debugger;
   axios
     .post(`https://stock-manager-backend-indol.vercel.app/API/tenant/addTenant/${id}`, Passdata)
     .then((res) => {
       debugger;
-      console.log(res.data);
       // setSuccess(true);
+      toast.success(res.data.message);
       history.push("/tenantlogin");
     })
     .catch((err) => {
-      console.log(err);
+      toast.error(err.response.data.message);
     });
 };
 

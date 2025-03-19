@@ -49,7 +49,6 @@ function Sales() {
     getManualSales(setDate);
   }, []);
 
-  console.log(data, "data");
   const columns = [
     { field: "id", headerName: "ID", width: 95 },
     {

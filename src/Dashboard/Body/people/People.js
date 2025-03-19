@@ -68,7 +68,6 @@ function People() {
 
   const handleActiveStatus = (data) => {
     debugger;
-    console.log(data, "data");
     activateInActiveUser(data, setRowdata);
   };
   const columns = [
@@ -166,7 +165,6 @@ function People() {
   useEffect(async () => {
     getAllUser(setRowdata);
   }, []);
-  console.log(rowdata);
 
   const rows = [
     {

@@ -7,6 +7,7 @@ import axios from "axios";
 import { FcFeedback } from "react-icons/fc";
 import { Link, useParams } from "react-router-dom";
 import FlashMessage from "./FlashMessage";
+import { toast } from "react-toastify";
 const useStyles = makeStyles((theme) => ({
   div: {
     display: "flex",
@@ -44,17 +45,16 @@ function UserRegister() {
     axios
       .post(`https://stock-manager-backend-indol.vercel.app/API/feedback/${_id}`, info)
       .then((res) => {
-        console.log(res.data);
+        toast.success("Feedback submitted successfully");
         setSuccess(true);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
     setSuccess(false);
   };
 
   const onSubmit = (data) => {
-    console.log(data);
     functionName(data);
     reset();
     // f2();
@@ -128,7 +128,6 @@ function UserRegister() {
             </Grid>
           </Grid>
         </form>
-        {success ? <FlashMessage message={"Feedback submitted"} /> : " "}
       </Grid>
     </div>
   );

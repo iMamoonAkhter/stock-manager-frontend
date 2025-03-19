@@ -8,6 +8,7 @@ import { Link, useRouteMatch, useHistory } from "react-router-dom";
 import FlashMessage from "../../../Pages/FlashMessage";
 import EditCategory from "../Category/EditCategory";
 import axios from "axios";
+import { toast } from "react-toastify";
 const useStyles = makeStyles((theme) => ({
   miandiv: {
     // width: "100%",
@@ -46,22 +47,20 @@ function Category() {
   const [rowdata, setRowdata] = useState([]);
   const [success, setSuccess] = useState(false);
   const handleDelete = (_id) => {
-    console.log(_id);
     axios
       .delete(`https://stock-manager-backend-indol.vercel.app/API/categories/${_id}`)
       .then((res) => {
         // history.push("http://localhost:3000/store");
-        console.log(res.data);
+        toast.success(res.data.message);
 
         setRowdata(rowdata);
         setSuccess(true);
         history.push("/admin");
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
-  console.log(rowdata, "rowdatarowdatarowdata");
   const columns = [
     { field: "id", headerName: "ID", width: 195 },
     {
@@ -113,14 +112,12 @@ function Category() {
       .get(`https://stock-manager-backend-indol.vercel.app/API/categories/${tenantID}`)
       .then((res, req) => {
         // history.push("http://localhost:3000/store");
-        console.log(res.data);
         setRowdata(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   }, []);
-  console.log(rowdata);
 
   // const rows = [
   //   {

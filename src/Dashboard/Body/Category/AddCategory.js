@@ -13,6 +13,7 @@ import {
 } from "@material-ui/pickers";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { toast } from "react-toastify";
 let schema = yup
   .object({
     name: yup.string().min(3).max(15).required(),
@@ -73,11 +74,11 @@ function AddCategory() {
     axios
       .post(`https://stock-manager-backend-indol.vercel.app/API/categories/${tenantID}`, data)
       .then((res) => {
-        console.log(res.data);
+        toast.success(res.data.message);
         setSuccess(true);
       })
       .catch((err) => {
-        console.log(err);
+        toast.error("Failed to add category");
       });
     setSuccess(false);
   };
@@ -86,9 +87,7 @@ function AddCategory() {
     setCategory(event.target.value);
   };
   const onSubmit = (data) => {
-    console.log(data);
     const myTenantId = localStorage.getItem("tenantId");
-    console.log("My Tenat ID: ",myTenantId)
     data.tenant_id = myTenantId;
     functionName(data);
     reset();

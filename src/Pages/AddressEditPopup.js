@@ -32,13 +32,11 @@ function AddressEditPopup({ openPopup, setOpenPopup, address, setAddress }) {
 
   // Handle address input change
   const handleAddressChange = (e) => {
-    console.log("New Address:", e.target.value); // Debugging
     setNewAddress(e.target.value); // Update the local state
   };
 
   // Save the address and close the popup
   const handleSaveAddress = () => {
-    console.log("Saving Address:", newAddress); // Debugging
     setAddress(newAddress); // Update the address in the parent component
     localStorage.setItem("address", newAddress); // Save the address to localStorage
     setOpenPopup(false); // Close the popup

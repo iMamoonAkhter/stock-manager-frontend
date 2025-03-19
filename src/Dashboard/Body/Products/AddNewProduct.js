@@ -15,6 +15,7 @@ import {
 } from "@material-ui/pickers";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { toast } from "react-toastify";
 let schema = yup
   .object({
     name: yup.string().min(3).max(15).required(),
@@ -84,13 +85,12 @@ function AddNewProduct() {
 
       .then((res) => {
         debugger;
-        console.log(res.data);
         setCategory(res.data);
         reset()
         //   history.push("/store");
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   }, []);
   // const {
@@ -153,7 +153,6 @@ function AddNewProduct() {
     formData.append("Tenant_id", info.Tenant_id);
     formData.append("description", info.description);
 
-    console.log("clicked");
     axios({
       method: "post",
       url: "https://stock-manager-backend-indol.vercel.app/API/products",
@@ -162,12 +161,12 @@ function AddNewProduct() {
     })
       .then(function (response) {
         //handle success
-        console.log(response);
+        toast.success("Product Added Successfully");
         setSuccess(true);
       })
       .catch(function (response) {
         //handle error
-        console.log(response);
+        console.error(response);
       });
 
     // info.image = stateimage;
@@ -193,19 +192,15 @@ function AddNewProduct() {
     const Allowed_Tpes = ["picture/*"];
     if (selected && Allowed_Tpes) {
       formData.append("picture", e.target.files[0]);
-      console.log("select");
     } else {
-      console.log("file not supported");
+      toast.error("File not supported")
     }
   };
 
-  console.log(Category, "Category");
 
-  console.log(productdata);
   // let tenantID = localStorage.getItem("tenantId");
   const onSubmit = (data) => {
     debugger;
-    console.log(data);
     // staticData();
     setProductData(data);
     f1(data);

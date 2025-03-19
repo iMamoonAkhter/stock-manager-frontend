@@ -9,6 +9,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link } from "react-router-dom";
 import FlashMessage from "../Pages/FlashMessage";
+import { toast } from "react-toastify";
 const useStyles = makeStyles((theme) => ({
   div: {
     display: "flex",
@@ -56,23 +57,17 @@ function AdminResetPass() {
     axios
       .put("https://stock-manager-backend-indol.vercel.app/API/admin/resetPassword", data)
       .then((res) => {
-        console.log(res, "res");
 
         // localStorage.setItem("userID", users._id);
-        console.log(res.data);
-        setLoginMessage("password changed");
-        setErrorDisplay(true);
+        toast.success(res.data.message);
         history.push("/adminlogin");
       })
       .catch((err) => {
-        setLoginMessage(err.message);
-        setErrorDisplay(true);
-        console.log(err);
+        toast.error(err.message);
       });
   };
 
   const onSubmit = (data) => {
-    console.log(data);
     functionName(data);
     // history.push("/admin");
   };
@@ -125,7 +120,6 @@ function AdminResetPass() {
           </form>
         </Grid>
       </div>
-      {ErrorDisplay && <FlashMessage message={loginMessage} />}
     </>
   );
 }

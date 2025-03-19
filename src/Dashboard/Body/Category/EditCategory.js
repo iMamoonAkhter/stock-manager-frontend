@@ -39,18 +39,14 @@ function AddCategory() {
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
-    console.log(id, "ididididididididid");
 
     getCategory(id, setData);
   }, []);
 
-  console.log(getData, "getDatagetDatagetDatagetData");
-  console.log(getData.id);
+  
 
   let Name = getData.name;
-  console.log(Name);
   const [dataName, setDataname] = useState(getData?.name);
-  console.log(dataName);
 
   // const functionName = async (data, history) => {
 
@@ -70,7 +66,6 @@ function AddCategory() {
 
   const onSubmit = (data) => {
     debugger;
-    console.log(data);
     if (!data.id) {
       data.id = getData.id;
     }

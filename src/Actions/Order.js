@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 let tenantID = localStorage.getItem("tenantId");
 const userId = localStorage.getItem("userID");
@@ -8,9 +9,9 @@ export const OrderCheckout = (payload) => {
     .post(`https://stock-manager-backend-indol.vercel.app/API/orders/placeOrder/${userId}`, payload)
     .then((res) => {
       // debugger;
-      console.log("add cart response", res.data);
+      toast.success("Order Placed Successfully");
     })
-    .then((error) => console.log(error));
+    .then((error) => toast.error("Order Placed Failed"));
 };
 
 export const getOrders = (setData) => {
@@ -18,10 +19,9 @@ export const getOrders = (setData) => {
   axios
     .get(`https://stock-manager-backend-indol.vercel.app/API/orders/tenant/${tenantID}`)
     .then((res) => {
-      console.log(res);
       let managedData = res.data.map((item) => {
         // debugger;
-        console.log(res, "res");
+        //console.log(res, "res");
         return {
           id: item._id,
           customerName: item.user_id.firstname + " " + item.user_id.lastname,
@@ -33,7 +33,7 @@ export const getOrders = (setData) => {
       });
       setData(managedData);
     })
-    .then((error) => console.log(error));
+    .then((error) => toast.error("Failed to display Orders"));
 };
 
 export const getManualOrders = (setData) => {
@@ -41,10 +41,10 @@ export const getManualOrders = (setData) => {
   axios
     .get(`https://stock-manager-backend-indol.vercel.app/API/ManualOrders/tenant/${tenantID}`)
     .then((res) => {
-      console.log(res);
+      //console.log(res);
       let managedData = res.data.map((item) => {
         // debugger;
-        console.log(res, "res");
+        //console.log(res, "res");
         return {
           id: item._id,
           customerName: item.name,
@@ -56,7 +56,7 @@ export const getManualOrders = (setData) => {
       });
       setData(managedData);
     })
-    .then((error) => console.log(error));
+    .then((error) => toast.error("Failed to display Manual Orders"));
 };
 
 export const orderplaced = (id) => {
@@ -66,9 +66,9 @@ export const orderplaced = (id) => {
     .put(`https://stock-manager-backend-indol.vercel.app/API/orders/${id}`)
     .then((res) => {
       // debugger;
-      console.log("placedorder   ", res.data);
+      toast.success(res.data.message)
     })
-    .then((error) => console.log(error));
+    .then((error) => toast.error("Failed to update Order Status"));
 };
 
 export const UpdateManualOrderPlaced = (id) => {
@@ -78,9 +78,9 @@ export const UpdateManualOrderPlaced = (id) => {
     .put(`https://stock-manager-backend-indol.vercel.app/API/ManualOrders/${id}`)
     .then((res) => {
       // debugger;
-      console.log("UpdateManualOrderPlaced   ", res.data);
+      toast.success("Updated Order Status");
     })
-    .then((error) => console.log(error));
+    .then((error) => toast.error("Failed to update Order Status"));
 };
 
 export const placeManualOrder = (data) => {
@@ -93,7 +93,8 @@ export const placeManualOrder = (data) => {
     )
     .then((res) => {
       debugger;
-      console.log("Manualorderplaced   ", res.data);
+      //console.log("Manualorderplaced   ", res.data);
+      toast.success(res.data.message)
     })
-    .then((error) => console.log(error));
+    .then((error) => toast.error("Failed to place Manual Order"));
 };

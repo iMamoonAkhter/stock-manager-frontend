@@ -7,6 +7,7 @@ import { useHistory, useParams } from "react-router";
 import axios from "axios";
 import { Form } from "react-bootstrap";
 import FlashMessage from "../../../Pages/FlashMessage";
+import { toast } from "react-toastify";
 const useStyles = makeStyles((theme) => ({
   img: {
     width: "250px",
@@ -66,12 +67,11 @@ function SingleProduct() {
       .get(`https://stock-manager-backend-indol.vercel.app/API/categories/${tenantID}`)
       .then((res) => {
         debugger;
-        console.log(res.data);
         setCategory(res.data);
         //   history.push("/store");
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   }, []);
   useEffect(() => {
@@ -80,15 +80,13 @@ function SingleProduct() {
       .then((res) => {
         debugger;
         // history.push("http://localhost:3000/store");
-        console.log(res.data);
         setRowdata(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   }, []);
 
-  console.log(Category, "Category");
   // const updateProduct = (data) => {
   //   debugger;
   //   axios({
@@ -148,7 +146,6 @@ function SingleProduct() {
     formData.append("Tenant_id", info.Tenant_id);
     formData.append("description", info.description);
 
-    console.log("clicked");
     axios({
       method: "put",
       url: `https://stock-manager-backend-indol.vercel.app/API/products/${id}`,
@@ -156,12 +153,10 @@ function SingleProduct() {
       headers: { "Content-Type": "multipart/form-data" },
     })
       .then(function (response) {
-        console.log(response);
-        setSuccess(true);
+        toast.success("Product Updated");
       })
       .catch(function (response) {
-        console.log(response);
-      });
+        console.error(response);});
   };
 
   const handleimage = (e) => {
@@ -171,9 +166,8 @@ function SingleProduct() {
     const Allowed_Tpes = ["picture/*"];
     if (selected && Allowed_Tpes) {
       formData.append("picture", e.target.files[0]);
-      console.log("select");
     } else {
-      console.log("file not supported");
+      toast.error("file not supported");
     }
   };
 
@@ -193,7 +187,6 @@ function SingleProduct() {
   };
   const onSubmit = (data) => {
     debugger;
-    console.log(data);
     const payload = {
       name: data.name ? data.name : rowdata.name,
       price: data.price ? Number(data.price) : Number(rowdata.price),

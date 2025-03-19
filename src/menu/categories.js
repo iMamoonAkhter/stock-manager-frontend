@@ -24,13 +24,10 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 function Categories({ filterItem, categories }) {
-  console.log("asasasa", categories);
   const a = "abc";
   useEffect(() => {
-    console.log("aqsa");
     filterItem(["all"]);
   }, []);
-  console.log("im n");
   const classes = useStyle();
   return (
     <Grid container className={classes.outer} spacing={2}>
