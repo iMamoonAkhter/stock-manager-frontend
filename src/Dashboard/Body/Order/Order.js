@@ -31,12 +31,12 @@ function Order() {
   const classes = useStyles();
   let { path, url } = useRouteMatch();
   const [orders, setOrders] = useState([]);
-
+  const tenutId = localStorage.getItem("tenantId");
   // Fetch all orders (regular and manual)
   const fetchOrders = async () => {
     try {
       // Fetch regular orders
-      const regularOrdersResponse = await axios.get("https://stock-manager-backend-indol.vercel.app/API/orders/");
+      const regularOrdersResponse = await axios.get(`https://stock-manager-backend-indol.vercel.app/API/orders/tenant/${tenutId}`);
       const regularOrders = regularOrdersResponse.data.map((order) => ({
         ...order,
         type: "Regular",

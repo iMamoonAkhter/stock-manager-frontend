@@ -96,17 +96,22 @@ function Cart() {
 
   // Handle checkout
   const handleCheckout = () => {
+    // Extract tenant_id from the first product in the cart
+    const tenant_id = productData[0].product.Tenant_id;
+  
     const payload = {
       address: address, // Use the updated address
       totalAmount: price,
       user_id: user_id,
       payment: "COD",
-      tenant_id: localStorage.getItem("tenantId"),
+      tenant_id: tenant_id, // Include tenant_id in the payload
       items: productData.map((data) => ({
         product: data.product._id,
         quantity: data.quantity,
+        tenant_id: data.product.Tenant_id, // Include tenant_id for each product
       })),
     };
+  
     OrderCheckout(payload);
     setOpenPopup(false); // Close the popup after placing the order
     fetchCartData(); // Refresh the cart data

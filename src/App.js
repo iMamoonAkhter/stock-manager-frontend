@@ -15,6 +15,7 @@ import AdminForgotPass from "../src/Form/AdminForgotPass";
 import ResetPassword from "../src/Form/ResetPassword";
 import AdminResetPass from "./Form/AdminResetPass";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Bounce, ToastContainer } from "react-toastify";
 
 // PrivateRoute for authenticated users/admins
 const PrivateRoute = ({ component: Component, isAdmin, ...rest }) => {
@@ -60,6 +61,19 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition={Bounce}
+        />
       <BrowserRouter>
         <Switch>
           {/* Redirect based on token */}
